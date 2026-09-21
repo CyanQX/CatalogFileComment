@@ -13,64 +13,57 @@
     <description><![CDATA[
         <h1>Catalog File Comments</h1>
         <br/>
-        <b>Your Code Directory "Sticky Notes" & Enterprise Architecture Panorama</b><br/>
-        <b>你的代码目录“便利贴” & 企业级架构全景图</b>
+        <b>Sticky Notes for Your Code Directory &amp; an Enterprise Architecture Panorama</b>
         <br/><br/>
 
         <p>
             In large projects, filenames often fail to fully convey business logic.
-            <b>Catalog File Comments</b> allows you to add custom comments directly after filenames in the Project View.
-        </p>
-        <p>
-            在开发大型项目时，文件名往往难以完全概括其业务逻辑。本插件允许你直接在 Project 视图的文件名后方添加自定义备注。
+            <b>Catalog File Comments</b> lets you add custom annotations directly after filenames in the Project View.
         </p>
         <br/>
 
-        <h2>📸 Feature 1: Visual Comments (目录级可视化备注)</h2>
+        <h2>📸 Feature 1: Visual Comments</h2>
         <ul>
-            <li>Display comments directly after the file name in Project View.</li>
-            <li>文件名后直接显示灰色注释，清晰直观。</li>
+            <li>Display custom comments right after the file name in the Project View.</li>
+            <li>Subtle gray italic style that blends naturally into the IDE.</li>
         </ul>
 
         <div style="margin-bottom: 20px;">
-            <a href="https://github.com/jingyanx2-cmd/CatalogFileComment/blob/main/rendering.png?raw=true
-">
-                <img src="https://github.com/jingyanx2-cmd/CatalogFileComment/blob/main/rendering.png?raw=true
-" alt="Visual Comments Demo" width="600" border="0" style="border: 1px solid #808080; padding: 2px;">
+            <a href="https://github.com/CyanQX/CatalogFileComment/blob/main/rendering.png?raw=true">
+                <img src="https://github.com/CyanQX/CatalogFileComment/blob/main/rendering.png?raw=true" alt="Visual Comments Demo" width="600" border="0" style="border: 1px solid #808080; padding: 2px;">
             </a>
             <br/>
             <code>Example: AuthServiceImpl.java // Business Layer - Auth Implementation</code>
         </div>
 
-        <h2>🧠 Feature 2: Smart Analysis (智能架构分析)</h2>
+        <h2>🧠 Feature 2: Smart Analysis</h2>
         <ul>
             <li>Auto-generate comments based on PSI analysis (Controller, Service, etc.).</li>
-            <li>基于 PSI 深度分析代码，一键生成标准化架构注释。</li>
+            <li>Built-in cloud rules recognize 100+ enterprise architecture components.</li>
         </ul>
 
         <div style="margin-bottom: 20px;">
-             <a href="https://github.com/jingyanx2-cmd/CatalogFileComment/blob/main/use.png?raw=true">
-                <img src="https://github.com/jingyanx2-cmd/CatalogFileComment/blob/main/use.png?raw=true" alt="Add Comment Dialog Demo" width="600" border="0" style="border: 1px solid #808080; padding: 2px;">
+             <a href="https://github.com/CyanQX/CatalogFileComment/blob/main/use.png?raw=true">
+                <img src="https://github.com/CyanQX/CatalogFileComment/blob/main/use.png?raw=true" alt="Add Comment Dialog Demo" width="600" border="0" style="border: 1px solid #808080; padding: 2px;">
             </a>
         </div>
 
         <br/>
         <hr/>
 
-        <h3>✨ Key Features (核心特性)</h3>
+        <h3>✨ Key Features</h3>
         <ul>
-            <li><b>Visual Directory Comments:</b> Native gray style comments in Project View.</li>
-            <li><b>Smart Analysis:</b> Built-in cloud rules to recognize 100+ components.</li>
-            <li><b>Cloud & Offline:</b> Prioritizes cloud rules, falls back to local cache.</li>
-            <li><b>Management Panel:</b> Batch manage all comments via Tools menu.</li>
+            <li><b>Visual Directory Comments:</b> Native gray style comments in the Project View.</li>
+            <li><b>Smart Analysis:</b> Cloud-rule based recognition for 100+ architecture components.</li>
+            <li><b>Cloud &amp; Offline:</b> Prioritizes cloud rules and falls back to a local cache.</li>
+            <li><b>Management Panel:</b> Batch manage all comments via the Tools menu.</li>
         </ul>
 
         <br/>
         <div style="border: 1px solid #ffc107; padding: 10px; margin-top: 10px;">
-            <b>⚠️ Statement (声明)</b><br/>
+            <b>⚠️ About</b><br/>
             <span style="font-size: smaller;">
-                This plugin is developed in spare time. Constructive feedback is welcome.<br/>
-                本插件由作者利用业余时间开发。欢迎通过理性、友善的方式反馈建议。<br/>
+                This plugin is developed in the author's spare time. Constructive feedback is always welcome.<br/>
                 <i>(Please be gentle with your feedback. Thank you! 🙏)</i>
             </span>
         </div>
