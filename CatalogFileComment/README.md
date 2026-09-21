@@ -1,3 +1,10 @@
+# Catalog File Comments — Plugin Module
+
+Gradle project of the IntelliJ Platform plugin. Full documentation lives in the [root README](../README.md).
+
+## Module Architecture
+
+```text
 ┌─────────────────────────────────────────┐
 │           IntelliJ IDEA UI              │
 │  ┌─────────┐  ┌─────────┐  ┌─────────┐ │
@@ -16,26 +23,35 @@
 │       │  (Memory→Disk→Cloud)  │         │
 │       └───────────────────────┘         │
 └─────────────────────────────────────────┘
-复制
+```
 
 ---
 
-## 🛠️ 技术栈
+## 🛠️ Tech Stack
 
-- **Kotlin** - 主要开发语言
-- **IntelliJ Platform SDK** - 插件开发框架
-- **PSI (Program Structure Interface)** - 代码语法树分析
-- **Gson** - JSON 解析
-- **GitHub Gist** - 云端规则存储
+- **Kotlin 2.1** — primary language
+- **IntelliJ Platform SDK** (IC 2024.3, `sinceBuild 243`) — plugin framework
+- **PSI (Program Structure Interface)** — code structure analysis
+- **Gson** — JSON parsing
+- **GitHub Gist** — cloud rule storage
 
 ---
 
-## 📄 许可证
+## 🚧 Build
 
-[MIT License](LICENSE)
+```bash
+./gradlew runIde       # start a sandbox IDE with the plugin
+./gradlew buildPlugin  # build the distributable ZIP
+```
+
+---
+
+## 📄 License
+
+[MIT](../LICENSE)
 
 ---
 
 <p align="center">
-  <i>让每一个文件名都带上它的使命。Happy Coding! 🎉</i>
+  <i>Let every filename carry its mission. Happy Coding! 🎉</i>
 </p>
