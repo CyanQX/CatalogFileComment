@@ -8,8 +8,11 @@ import java.net.URI
 import java.util.concurrent.TimeUnit
 
 class CloudRuleService {
+    // Cloud rule source: a GitHub Gist maintained by the plugin author.
+    // The unpinned "raw" URL always serves the latest revision; rules are cached
+    // on disk for 24 hours so GitHub rate limits are not a problem in practice.
     private val dataUrl =
-        "https://gist.githubusercontent.com/jingyanx2-cmd/63ab74e15135fd3fd0aec8c6012bd360/raw/2e6bd7384c012bf462dd746042d7b1116ee59ce8/CatalogFileComments.json"
+        "https://gist.githubusercontent.com/CyanQX/63ab74e15135fd3fd0aec8c6012bd360/raw/CatalogFileComments.json"
     private val cacheFileName = "catalog_rules_cache_v2.json"
     private val cacheDurationHours = 24
     private var cachedRules: Map<String, String> = emptyMap()
@@ -17,7 +20,7 @@ class CloudRuleService {
 
     init {
         if (System.getProperty("catalogfilecomment.forcerefresh") == "true") {
-            println("🔄 强制刷新模式已启用")
+            println("🔄 Force refresh mode enabled")
             forceRefresh()
         }
     }
@@ -32,7 +35,7 @@ class CloudRuleService {
 
     fun getRules(): Map<String, String> {
         if (cachedRules.isNotEmpty() && !isCacheExpired()) {
-            println("✅ 使用内存缓存")
+            println("✅ Using in-memory cache")
             return cachedRules
         }
         val localRules = loadFromLocalDisk()
@@ -40,26 +43,26 @@ class CloudRuleService {
             cachedRules = localRules
             lastFetchTime = File(PathManager.getPluginTempPath(), cacheFileName).lastModified()
             if (!isCacheExpired()) {
-                println("✅ 使用本地缓存")
+                println("✅ Using local disk cache")
                 return localRules
             }
         }
-        println("🌐 尝试从云端加载...")
+        println("🌐 Fetching rules from the cloud...")
         val remoteRules = fetchFromRemote()
         return if (remoteRules.isNotEmpty()) {
             cachedRules = remoteRules
             saveToLocalDisk(remoteRules)
             lastFetchTime = System.currentTimeMillis()
-            println("✅ 云端加载成功，已更新缓存")
+            println("✅ Cloud rules loaded, cache updated")
             remoteRules
         } else {
-            println("⚠️ 网络失败，使用过期缓存")
+            println("⚠️ Network request failed, using stale cache")
             localRules
         }
     }
 
     fun forceRefresh(): Map<String, String> {
-        println("🔄 强制刷新...")
+        println("🔄 Force refreshing...")
         lastFetchTime = 0
         cachedRules = emptyMap()
         return getRules()
@@ -79,7 +82,7 @@ class CloudRuleService {
 
             val responseCode = connection.responseCode
             if (responseCode == 429) {
-                println("❌ GitHub限流(429)，请稍后再试")
+                println("❌ GitHub rate limit hit (429), please try again later")
                 return emptyMap()
             }
 
@@ -87,11 +90,11 @@ class CloudRuleService {
                 val json = connection.inputStream.bufferedReader().use { it.readText() }
                 parseJsonToFlatMap(json)
             } else {
-                println("❌ HTTP错误: $responseCode")
+                println("❌ HTTP error: $responseCode")
                 emptyMap()
             }
         } catch (e: Exception) {
-            println("❌ 网络请求失败: ${e.message}")
+            println("❌ Network request failed: ${e.message}")
             emptyMap()
         }
     }
@@ -107,7 +110,7 @@ class CloudRuleService {
                 emptyMap()
             }
         } catch (e: Exception) {
-            println("⚠️ 读取本地缓存失败: ${e.message}")
+            println("⚠️ Failed to read local cache: ${e.message}")
             emptyMap()
         }
     }
@@ -118,9 +121,9 @@ class CloudRuleService {
             if (!dir.exists()) dir.mkdirs()
             val file = File(dir, cacheFileName)
             file.writeText(Gson().toJson(data))
-            println("💾 已保存到: ${file.absolutePath}")
+            println("💾 Cache saved to: ${file.absolutePath}")
         } catch (e: Exception) {
-            println("⚠️ 保存本地缓存失败: ${e.message}")
+            println("⚠️ Failed to save local cache: ${e.message}")
         }
     }
 
@@ -134,7 +137,10 @@ class CloudRuleService {
         try {
             val data = Gson().fromJson(json, ArchitectureData::class.java)
             data.layers?.forEach { layer ->
-                val layerName = layer.name ?: "未知层"
+                // Prefer the English layer name when the rule source provides one
+                val layerName = layer.nameEn?.takeIf { it.isNotBlank() }
+                    ?: layer.name
+                    ?: "Unknown Layer"
                 layer.components?.forEach { component ->
                     val suffix = component.type
                     val desc = component.description
@@ -144,12 +150,16 @@ class CloudRuleService {
                 }
             }
         } catch (e: Exception) {
-            println("❌ JSON解析失败: ${e.message}")
+            println("❌ JSON parsing failed: ${e.message}")
         }
         return resultMap
     }
 
     private data class ArchitectureData(val layers: List<Layer>? = null)
-    private data class Layer(val name: String? = null, val components: List<Component>? = null)
+    private data class Layer(
+        val name: String? = null,
+        val nameEn: String? = null,
+        val components: List<Component>? = null
+    )
     private data class Component(val type: String? = null, val description: String? = null)
 }
