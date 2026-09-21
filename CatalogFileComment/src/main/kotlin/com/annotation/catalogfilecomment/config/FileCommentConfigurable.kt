@@ -22,7 +22,7 @@ class FileCommentConfigurable : Configurable {
 
     override fun apply() {
         panel?.apply()
-        // 刷新所有项目的 Project View
+        // Refresh the Project View of all open projects
         ProjectManager.getInstance().openProjects.forEach { project ->
             com.intellij.ide.projectView.ProjectView.getInstance(project).refresh()
         }
