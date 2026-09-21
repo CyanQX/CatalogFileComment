@@ -55,7 +55,7 @@ class CommentInputDialog(
             preferredSize = Dimension(500, 60)
         }
 
-        textField.emptyText.text = "e.g. 业务层_用户鉴权服务"
+        textField.emptyText.text = "e.g. ServiceLayer_UserAuthService"
         panel.add(JLabel("Comment:"), BorderLayout.WEST)
         panel.add(textField, BorderLayout.CENTER)
 
@@ -85,7 +85,7 @@ class CommentInputDialog(
 
         if (!validationRegex.matches(text)) {
             return ValidationInfo(
-                "2–50 chars · Chinese / Latin / digits / - _ + .",
+                "2–50 chars · Latin / CJK / digits / - _ + .",
                 textField
             )
         }
@@ -149,9 +149,9 @@ class CommentInputDialog(
     private fun structuralFallback(info: ClassInfo): String {
         val name = info.name
 
-        if (info.isInterface) return "${name}_接口定义"
-        if (info.isEnum) return "${name}_枚举常量"
-        if (info.isAbstract) return "${name}_抽象基类"
+        if (info.isInterface) return "${name}_Interface"
+        if (info.isEnum) return "${name}_Enum"
+        if (info.isAbstract) return "${name}_AbstractBase"
         val hasId = info.fieldNames.any { it == "id" || it.endsWith("Id") }
         val hasTs = info.fieldNames.any {
             it in setOf(
@@ -159,14 +159,14 @@ class CommentInputDialog(
                 "gmtCreate", "gmtModified"
             )
         }
-        if (hasId && hasTs) return "${name}_数据实体"
-        if (hasId && info.fieldNames.size >= 3) return "${name}_数据实体"
+        if (hasId && hasTs) return "${name}_DataEntity"
+        if (hasId && info.fieldNames.size >= 3) return "${name}_DataEntity"
         val ifaces = info.interfaceNames.joinToString("|")
-        if (ifaces.contains("Service")) return "${name}_业务服务"
-        if (ifaces.contains("Repository")) return "${name}_数据仓储"
-        if (ifaces.contains("Dao")) return "${name}_数据访问"
+        if (ifaces.contains("Service")) return "${name}_BusinessService"
+        if (ifaces.contains("Repository")) return "${name}_DataRepository"
+        if (ifaces.contains("Dao")) return "${name}_DataAccess"
 
-        return "${name}_核心组件"
+        return "${name}_CoreComponent"
     }
 
     private data class ClassInfo(

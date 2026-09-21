@@ -70,7 +70,7 @@ class FileCommentManagerPanel : JPanel(BorderLayout()) {
 
         searchField.addActionListener {
             val keyword = searchField.text
-            // 【修复】使用 filterData 方法进行本地过滤
+            // Use filterData for local (in-memory) filtering
             filterData(keyword)
         }
     }
