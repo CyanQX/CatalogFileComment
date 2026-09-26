@@ -183,15 +183,7 @@ CatalogFileComment/
 
 Bug reports and feature ideas are welcome via [Issues](https://github.com/CyanQX/CatalogFileComment/issues). New architecture rules are especially appreciated — propose them in the Gist or open an issue.
 
-*(This plugin is developed in spare time — please be gentle with your feedback. Thank you! 🙏)*
-
 ## 📄 License
 
 [MIT](LICENSE) © QingXian
-
----
-
-<p align="center">
-  <i>Let every filename carry its mission. Happy Coding! 🎉</i>
-</p>
 
